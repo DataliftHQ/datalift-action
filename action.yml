@@ -1,0 +1,28 @@
+name: "Datalift Action"
+description: "GitHub Action for Datalift"
+author: "datalift"
+
+inputs: 
+  version:
+    description: 'Datalift version'
+    default: 'latest'
+    required: false
+  args:
+    description: 'Arguments to pass to Datalift'
+    required: false
+  workdir:
+    description: 'Working directory (below repository root)'
+    default: '.'
+    required: false
+  install-only:
+    description: 'Only install Datalift'
+    default: 'false'
+    required: false
+
+outputs:
+  metadata:
+    description: 'Build result metadata'
+
+runs:
+  using: "node20"
+  main: "dist/index.js"

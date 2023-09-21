@@ -1,0 +1,44 @@
+name: ci
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  schedule:
+    - cron: '0 10 * * *'
+  workflow_dispatch:
+  push:
+    branches:
+      - 'master'
+      - 'releases/v*'
+    tags:
+      - 'v*'
+  pull_request:
+
+jobs:
+  install-only:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        version:
+          - latest
+          - '~> 0.1'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Datalift
+        if: ${{ !(github.event_name == 'pull_request') }}
+        uses: ./
+        with:
+          version: ${{ matrix.version }}
+          install-only: true
+      -
+        name: Check
+        if: ${{ !(github.event_name == 'pull_request') }}
+        run: |
+          datalift help

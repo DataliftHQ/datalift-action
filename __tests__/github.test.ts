@@ -23,7 +23,7 @@ describe('getRelease', () => {
   it('unknown Datalift release', async () => {
     await expect(github.getRelease('foo')).rejects.toThrow(
       new Error(
-        'Cannot find Datalift release foo in https://datalift.dev/static/releases.json'
+        'Cannot find Datalift release foo in https://releases.datalift.dev/datalift-cli/tags.json'
       )
     )
   })

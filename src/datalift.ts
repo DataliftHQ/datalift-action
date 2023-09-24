@@ -5,6 +5,7 @@ import * as context from './context'
 import * as github from './github'
 import * as core from '@actions/core'
 import * as tc from '@actions/tool-cache'
+import * as semver from 'semver'
 
 export async function install(version: string): Promise<string> {
   const release: github.GitHubRelease = await github.getRelease(version)
@@ -76,7 +77,8 @@ const getFilename = (
       break
     }
   }
-  const tag_version: string = tag_name.replace(/^v/, '')
+
+  const tag_version: string = semver.clean(tag_name)
   const platform: string =
     osPlat == 'win32' ? 'windows' : osPlat == 'darwin' ? 'darwin' : 'linux'
   const ext: string = osPlat == 'win32' ? 'zip' : 'tar.gz'

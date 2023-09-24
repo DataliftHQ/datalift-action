@@ -20,7 +20,7 @@ export const getReleaseTag = async (
     return {tag_name: version}
   }
   const tag: string = (await resolveVersion(version)) || version
-  const url = `https://datalift.dev/static/releases.json`
+  const url = `https://releases.datalift.dev/datalift-cli/tags.json`
   const http: httpm.HttpClient = new httpm.HttpClient('datalift-action')
   http.requestOptions = {
     maxRetries: 3,
@@ -46,7 +46,7 @@ export const getReleaseTag = async (
 }
 
 export const getLatestRelease = async (): Promise<GitHubRelease> => {
-  const url = `https://datalift.dev/static/latest`
+  const url = `https://releases.datalift.dev/datalift-cli/latest`
   const http: httpm.HttpClient = new httpm.HttpClient('datalift-action')
   http.requestOptions = {
     maxRetries: 3,
@@ -89,7 +89,7 @@ const getAllTags = async (): Promise<Array<string>> => {
       cookie: 'preview=true'
     }
   }
-  const url = `https://datalift.dev/static/releases.json`
+  const url = `https://releases.datalift.dev/datalift-cli/tags.json`
   core.debug(`Downloading ${url}`)
   const getTags = http.getJson<Array<GitHubTag>>(url)
   return getTags.then(response => {

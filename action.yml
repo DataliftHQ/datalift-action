@@ -1,6 +1,9 @@
 name: "Datalift Action"
 description: "GitHub Action for Datalift"
-author: "datalift"
+author: "Datalift LLC"
+branding:
+  icon: 'code'
+  color: 'blue'
 
 inputs: 
   version:
